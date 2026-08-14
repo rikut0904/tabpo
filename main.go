@@ -6,8 +6,11 @@ import (
 	"encoding/json"
 	"fmt"
 	"log"
+	"os"
+	"os/exec"
 
 	"github.com/wailsapp/wails/v2"
+	"github.com/wailsapp/wails/v2/pkg/menu"
 	"github.com/wailsapp/wails/v2/pkg/options"
 	"github.com/wailsapp/wails/v2/pkg/options/assetserver"
 	"github.com/wailsapp/wails/v2/pkg/runtime"
@@ -15,6 +18,9 @@ import (
 
 //go:embed frontend/dist
 var assets embed.FS
+
+//go:embed THIRD_PARTY_NOTICES.md
+var thirdPartyNotices []byte
 
 type App struct {
 	ctx      context.Context
@@ -156,6 +162,36 @@ func (a *App) showError(message string) {
 	}
 }
 
+func (a *App) menu() *menu.Menu {
+	applicationMenu := menu.NewMenu()
+	applicationMenu.Append(menu.AppMenu())
+	applicationMenu.Append(menu.EditMenu())
+	applicationMenu.Append(menu.WindowMenu())
+
+	helpMenu := applicationMenu.AddSubmenu("ヘルプ")
+	helpMenu.AddText("ライセンス情報", nil, func(_ *menu.CallbackData) {
+		file, err := os.CreateTemp("", "db-access-licenses-*.md")
+		if err != nil {
+			a.showError(fmt.Sprintf("ライセンス情報を準備できません: %v", err))
+			return
+		}
+		path := file.Name()
+		if _, err := file.Write(thirdPartyNotices); err != nil {
+			_ = file.Close()
+			a.showError(fmt.Sprintf("ライセンス情報を書き出せません: %v", err))
+			return
+		}
+		if err := file.Close(); err != nil {
+			a.showError(fmt.Sprintf("ライセンス情報を開けません: %v", err))
+			return
+		}
+		if err := exec.Command("open", path).Start(); err != nil {
+			a.showError(fmt.Sprintf("ライセンス情報を開けません: %v", err))
+		}
+	})
+	return applicationMenu
+}
+
 func main() {
 	app := NewApp()
 	if err := wails.Run(&options.App{
@@ -168,6 +204,7 @@ func main() {
 		BackgroundColour:         &options.RGBA{R: 18, G: 18, B: 20, A: 1},
 		OnStartup:                app.startup,
 		OnShutdown:               app.shutdown,
+		Menu:                     app.menu(),
 		Bind:                     []interface{}{app},
 		Frameless:                false,
 		EnableDefaultContextMenu: true,

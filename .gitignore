@@ -5,6 +5,7 @@ frontend/node_modules/
 # Wails / frontend build output
 build/
 bin/
+dbaccess
 frontend/dist/
 frontend/.vite/
 frontend/coverage/

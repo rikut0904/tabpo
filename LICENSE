@@ -1,21 +1,36 @@
-MIT License
+DB Access Free Binary Use License
+Version 1.0 - 2026-08-15
 
-Copyright (c) [2025] [rikut0904]
+Copyright (c) 2026 rikut0904. All rights reserved.
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+1. 許可される利用
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
+著作権者は、本ソフトウェアのコンパイル済みアプリケーションおよび
+公式に配布された実行可能形式について、個人利用および業務利用を含む
+無償の利用を許可します。
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+著作権表示および本ライセンスを変更せずに添付することを条件として、
+公式に配布されたコンパイル済みアプリケーションの無償での再配布を
+許可します。
+
+2. 禁止事項
+
+著作権者の事前の書面による許可なく、以下を行ってはなりません。
+
+- 本ソフトウェアのソースコードをコピー、改変、公開、再配布または販売すること
+- 本ソフトウェアのソースコードを利用した派生作品を作成、公開または配布すること
+- 本ソフトウェアをリバースエンジニアリング、逆コンパイルまたは逆アセンブルすること
+- 本ソフトウェアを第三者へ再許諾すること
+
+3. 著作権
+
+本ソフトウェアおよびそのソースコードに関する著作権その他の権利は、
+著作権者に帰属します。本ライセンスは、明示的に許可された範囲を除き、
+いかなる権利も許諾するものではありません。
+
+4. 免責事項
+
+本ソフトウェアは「現状のまま」提供され、明示または黙示を問わず、
+商品性、特定目的への適合性および権利非侵害を含む一切の保証を行いません。
+本ソフトウェアの利用または利用不能から生じるいかなる損害についても、
+著作権者は責任を負いません。
