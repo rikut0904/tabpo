@@ -61,6 +61,7 @@ make up
 - 保存済み接続プロファイルの保存・再利用・削除
 - 接続プロファイルの設定値はSQLite、パスワードはmacOS Keychainへ保存
 - macOSメニューバーの「ヘルプ > ライセンス情報」から第三者ライセンスを表示
+- macOSメニューバーの「操作」から接続・切断・更新を実行
 
 ローカル保存データは`~/Library/Application Support/DB Access/profiles.db`に作成されます。パスワードはこのSQLiteファイルには保存されず、macOS Keychainの`DB Access`サービスへ保存されます。
 

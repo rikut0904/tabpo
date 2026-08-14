@@ -168,6 +168,11 @@ func (a *App) menu() *menu.Menu {
 	applicationMenu.Append(menu.EditMenu())
 	applicationMenu.Append(menu.WindowMenu())
 
+	actionsMenu := applicationMenu.AddSubmenu("操作")
+	actionsMenu.AddText("接続", nil, func(_ *menu.CallbackData) { a.emitMenuEvent("menu:connect") })
+	actionsMenu.AddText("切断", nil, func(_ *menu.CallbackData) { a.emitMenuEvent("menu:disconnect") })
+	actionsMenu.AddText("更新", nil, func(_ *menu.CallbackData) { a.emitMenuEvent("menu:refresh") })
+
 	helpMenu := applicationMenu.AddSubmenu("ヘルプ")
 	helpMenu.AddText("ライセンス情報", nil, func(_ *menu.CallbackData) {
 		file, err := os.CreateTemp("", "db-access-licenses-*.md")
@@ -190,6 +195,12 @@ func (a *App) menu() *menu.Menu {
 		}
 	})
 	return applicationMenu
+}
+
+func (a *App) emitMenuEvent(name string) {
+	if a.ctx != nil {
+		runtime.EventsEmit(a.ctx, name)
+	}
 }
 
 func main() {
