@@ -1,0 +1,21 @@
+.gocache/
+.gomodcache/
+frontend/node_modules/
+
+# Wails / frontend build output
+build/
+bin/
+frontend/dist/
+frontend/.vite/
+frontend/coverage/
+
+# Local development files
+.DS_Store
+*.log
+.env
+.env.*
+!.env.example
+
+# macOS packaging output
+*.app
+*.dmg

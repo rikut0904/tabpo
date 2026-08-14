@@ -1,0 +1,64 @@
+# DB Access
+
+macOS向けのデータベースクライアントです。初期実装はPostgreSQLに対応し、Wails + React/TypeScript + Go `database/sql`で構成します。
+
+## 開発環境
+
+- Go 1.26+
+- Node.js / npm
+- Wails v2 CLI
+- PostgreSQL（接続テスト時）
+
+## 初回セットアップ
+
+Wails CLIが未インストールの場合は、以下を実行します。
+
+```sh
+go install github.com/wailsapp/wails/v2/cmd/wails@latest
+export PATH="$(go env GOPATH)/bin:$PATH"
+```
+
+`wails: command not found`になる場合は、GoのbinディレクトリをPATHへ追加してください。毎回設定したくない場合は、`~/.zshrc`へ追加します。
+
+```sh
+echo 'export PATH="$(go env GOPATH)/bin:$PATH"' >> ~/.zshrc
+source ~/.zshrc
+```
+
+フロントエンドの依存関係をインストールします。
+
+```sh
+make install
+```
+
+## 起動
+
+プロジェクトルートで、以下を実行します。
+
+```sh
+make up
+```
+
+`make up`は、フロントエンドをビルドしてからWailsの開発アプリを起動します。アプリを終了する場合は、ターミナルで`Ctrl-C`を押してください。
+
+## 接続の流れ
+
+1. 「接続設定」でPostgreSQLのホスト、ポート、接続先DB、ユーザー名、パスワードを入力する
+2. 「接続」を押して指定したDBへ接続する
+3. テーブルを選択してデータを閲覧する
+4. 主キーがあるテーブルでは、セルをクリックして値を変更する
+
+## 現在の実装範囲
+
+- PostgreSQLへの接続・切断
+- 接続設定フォーム
+- 接続設定で指定したPostgreSQLデータベースへの接続
+- スキーマ内のテーブル一覧表示
+- 最大100行のテーブルデータ閲覧
+- 主キーを持つテーブルのセル編集・保存
+- 任意SQLは実行せず、内部で固定クエリのみを利用
+- WailsのGo Bindingによるフロントエンド連携
+- 保存済み接続プロファイルの保存・再利用・削除
+- 接続プロファイルの設定値はSQLite、パスワードはmacOS Keychainへ保存
+
+ローカル保存データは`~/Library/Application Support/DB Access/profiles.db`に作成されます。パスワードはこのSQLiteファイルには保存されず、macOS Keychainの`DB Access`サービスへ保存されます。
