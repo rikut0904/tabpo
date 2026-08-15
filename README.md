@@ -1,6 +1,6 @@
-# DB Access
+# tabpo
 
-macOS向けのデータベースクライアントです。初期実装はPostgreSQLに対応し、Wails + React/TypeScript + Go `database/sql`で構成します。
+PostgreSQL向けのデスクトップデータベースクライアントです。Wails + React/TypeScript + Go `database/sql`で構成し、macOS・Windowsでの動作を対象にしています。
 
 ## 開発環境
 
@@ -9,13 +9,14 @@ macOS向けのデータベースクライアントです。初期実装はPostgr
 - Wails v2 CLI
 - PostgreSQL（接続テスト時）
 
+Windows版のビルドには、Windows 10/11、WebView2 Runtime、Go、Node.js/npm、Wails CLIが必要です。Linux版のビルドには、Go、Node.js/npm、Wails CLIに加えてGTK 3とWebKitGTKの開発パッケージが必要です。
+
 ## 初回セットアップ
 
-Wails CLIが未インストールの場合は、以下を実行します。
+環境に合わせて初期化します。Wails CLIのインストール、フロントエンド依存関係の導入、Linuxに必要なGTK/WebKitGTKの導入を行います。このコマンドで各プラットフォームを自動判定するため、Windows/macOS/Linuxいずれでも同じコマンドで実行可能です。
 
 ```sh
-go install github.com/wailsapp/wails/v2/cmd/wails@latest
-export PATH="$(go env GOPATH)/bin:$PATH"
+make init
 ```
 
 `wails: command not found`になる場合は、GoのbinディレクトリをPATHへ追加してください。毎回設定したくない場合は、`~/.zshrc`へ追加します。
@@ -41,6 +42,18 @@ make up
 
 `make up`は、フロントエンドをビルドしてからWailsの開発アプリを起動します。アプリを終了する場合は、ターミナルで`Ctrl-C`を押してください。
 
+## 各プラットフォームでのダウンロード
+
+```bash
+make build
+```
+
+を実行することでどのプラットフォームかを自動判別して自動でビルドが行われます。ビルド後、以下のディレクトリに生成された実行ファイルを起動してご利用ください。
+
+- Windows: `build/win-amd64/tabpo.exe`
+- macOS: `build/mac-arm64/tabpo.app`
+- Linux: `build/linux-amd64/tabpo`
+
 ## 接続の流れ
 
 1. 未接続時に表示される接続フォームへPostgreSQLのホスト、ポート、接続先DB、ユーザー名、パスワードを入力する
@@ -59,11 +72,11 @@ make up
 - 任意SQLは実行せず、内部で固定クエリのみを利用
 - WailsのGo Bindingによるフロントエンド連携
 - 保存済み接続プロファイルの保存・再利用・削除
-- 接続プロファイルの設定値はSQLite、パスワードはmacOS Keychainへ保存
-- macOSメニューバーの「ヘルプ > ライセンス情報」から第三者ライセンスを表示
-- macOSメニューバーの「操作」から接続・切断・更新を実行
+- 接続プロファイルの設定値はSQLite、パスワードはOSの資格情報ストアへ保存
+- OS標準のファイルオープナーで第三者ライセンスを表示
+- アプリメニューの「操作」から接続・切断・更新を実行
 
-ローカル保存データは`~/Library/Application Support/DB Access/profiles.db`に作成されます。パスワードはこのSQLiteファイルには保存されず、macOS Keychainの`DB Access`サービスへ保存されます。
+ローカル保存データはOSのユーザー設定ディレクトリに`DB Access/profiles.db`として作成されます。パスワードはこのSQLiteファイルには保存されず、OSの資格情報ストアへ保存されます。
 
 ## ライセンス
 
