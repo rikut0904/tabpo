@@ -9,7 +9,7 @@ class AppErrorBoundary extends Component<{ children: ReactNode }, { error: Error
   static getDerivedStateFromError(error: Error) { return { error }; }
 
   componentDidCatch(error: Error, info: ErrorInfo) {
-    console.error('DB Access render error', error, info.componentStack);
+    console.error('tabpo render error', error, info.componentStack);
   }
 
   render() {

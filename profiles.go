@@ -96,7 +96,7 @@ func (s *ProfileStore) Save(profile ConnectionProfile, password string) (Connect
 		return ConnectionProfile{}, err
 	}
 	if err := keyring.Set(keychainService, profile.ID, password); err != nil {
-		return ConnectionProfile{}, fmt.Errorf("Keychainへの保存に失敗しました: %w", err)
+		return ConnectionProfile{}, fmt.Errorf("OSの資格情報ストアへの保存に失敗しました: %w", err)
 	}
 	return profile, nil
 }

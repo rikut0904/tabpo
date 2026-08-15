@@ -7,8 +7,8 @@ import (
 	"fmt"
 	"log"
 	"os"
-	"os/exec"
 
+	"github.com/pkg/browser"
 	"github.com/wailsapp/wails/v2"
 	"github.com/wailsapp/wails/v2/pkg/menu"
 	"github.com/wailsapp/wails/v2/pkg/options"
@@ -155,7 +155,7 @@ func (a *App) shutdown(ctx context.Context) {
 func (a *App) showError(message string) {
 	if a.ctx != nil {
 		runtime.MessageDialog(a.ctx, runtime.MessageDialogOptions{
-			Title:   "DB Access",
+			Title:   "tabpo",
 			Message: message,
 			Type:    runtime.ErrorDialog,
 		})
@@ -190,7 +190,7 @@ func (a *App) menu() *menu.Menu {
 			a.showError(fmt.Sprintf("ライセンス情報を開けません: %v", err))
 			return
 		}
-		if err := exec.Command("open", path).Start(); err != nil {
+		if err := browser.OpenFile(path); err != nil {
 			a.showError(fmt.Sprintf("ライセンス情報を開けません: %v", err))
 		}
 	})
@@ -206,7 +206,7 @@ func (a *App) emitMenuEvent(name string) {
 func main() {
 	app := NewApp()
 	if err := wails.Run(&options.App{
-		Title:                    "DB Access",
+		Title:                    "tabpo",
 		Width:                    1440,
 		Height:                   900,
 		MinWidth:                 980,

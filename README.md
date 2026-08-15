@@ -1,6 +1,6 @@
-# DB Access
+# tabpo
 
-macOS向けのデータベースクライアントです。初期実装はPostgreSQLに対応し、Wails + React/TypeScript + Go `database/sql`で構成します。
+PostgreSQL向けのデスクトップデータベースクライアントです。Wails + React/TypeScript + Go `database/sql`で構成し、macOS・Windowsでの動作を対象にしています。
 
 ## 開発環境
 
@@ -8,6 +8,8 @@ macOS向けのデータベースクライアントです。初期実装はPostgr
 - Node.js / npm
 - Wails v2 CLI
 - PostgreSQL（接続テスト時）
+
+Windows版のビルドには、Windows 10/11、WebView2 Runtime、Go、Node.js/npm、Wails CLIが必要です。
 
 ## 初回セットアップ
 
@@ -41,6 +43,22 @@ make up
 
 `make up`は、フロントエンドをビルドしてからWailsの開発アプリを起動します。アプリを終了する場合は、ターミナルで`Ctrl-C`を押してください。
 
+## Windows版の出力
+
+Windows上でプロジェクトルートから実行します。
+
+```sh
+make build/win
+```
+
+生成物は`build/win-amd64/tabpo.exe`です。WSLから起動する場合は、Windows側のパスを指定します。
+
+```sh
+/mnt/c/path/to/project/build/win-amd64/tabpo.exe
+```
+
+この場合、アプリ本体とGUIはWindowsで動作し、WSLは起動コマンドを実行するだけです。PostgreSQLがWSL内で動作している場合は、接続フォームのホストに`localhost`を指定して接続できない環境があるため、その場合はWSLのIPアドレスを指定してください。
+
 ## 接続の流れ
 
 1. 未接続時に表示される接続フォームへPostgreSQLのホスト、ポート、接続先DB、ユーザー名、パスワードを入力する
@@ -59,11 +77,11 @@ make up
 - 任意SQLは実行せず、内部で固定クエリのみを利用
 - WailsのGo Bindingによるフロントエンド連携
 - 保存済み接続プロファイルの保存・再利用・削除
-- 接続プロファイルの設定値はSQLite、パスワードはmacOS Keychainへ保存
-- macOSメニューバーの「ヘルプ > ライセンス情報」から第三者ライセンスを表示
-- macOSメニューバーの「操作」から接続・切断・更新を実行
+- 接続プロファイルの設定値はSQLite、パスワードはOSの資格情報ストアへ保存
+- OS標準のファイルオープナーで第三者ライセンスを表示
+- アプリメニューの「操作」から接続・切断・更新を実行
 
-ローカル保存データは`~/Library/Application Support/DB Access/profiles.db`に作成されます。パスワードはこのSQLiteファイルには保存されず、macOS Keychainの`DB Access`サービスへ保存されます。
+ローカル保存データはOSのユーザー設定ディレクトリに`DB Access/profiles.db`として作成されます。パスワードはこのSQLiteファイルには保存されず、OSの資格情報ストアへ保存されます。
 
 ## ライセンス
 
