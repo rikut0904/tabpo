@@ -9,7 +9,6 @@ if (-not (Get-Command npm -ErrorAction SilentlyContinue)) {
 }
 
 go install github.com/wailsapp/wails/v2/cmd/wails@v2.14.0
-npm --prefix frontend install
 
 $goBin = go env GOPATH
 if ($goBin -is [array]) {
