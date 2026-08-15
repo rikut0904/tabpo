@@ -10,7 +10,7 @@ init:
 		MINGW*|MSYS*|CYGWIN*) $(MAKE) init/win ;; \
 		*) echo "未対応のOSです: $$(uname -s)"; exit 1 ;; \
 	esac
-	make install
+	@$(MAKE) install
 
 init/mac:
 	@command -v go >/dev/null || (echo "Goが必要です: https://go.dev/dl/"; exit 1)
