@@ -9,15 +9,14 @@ PostgreSQL向けのデスクトップデータベースクライアントです�
 - Wails v2 CLI
 - PostgreSQL（接続テスト時）
 
-Windows版のビルドには、Windows 10/11、WebView2 Runtime、Go、Node.js/npm、Wails CLIが必要です。
+Windows版のビルドには、Windows 10/11、WebView2 Runtime、Go、Node.js/npm、Wails CLIが必要です。Linux版のビルドには、Go、Node.js/npm、Wails CLIに加えてGTK 3とWebKitGTKの開発パッケージが必要です。
 
 ## 初回セットアップ
 
-Wails CLIが未インストールの場合は、以下を実行します。
+環境に合わせて初期化します。Wails CLIのインストール、フロントエンド依存関係の導入、Linuxに必要なGTK/WebKitGTKの導入を行います。このコマンドで書くプラットフォームを自動判定するためwindows,mac,linuxいずれでも同じコマンドで実行可能です。
 
 ```sh
-go install github.com/wailsapp/wails/v2/cmd/wails@latest
-export PATH="$(go env GOPATH)/bin:$PATH"
+make init
 ```
 
 `wails: command not found`になる場合は、GoのbinディレクトリをPATHへ追加してください。毎回設定したくない場合は、`~/.zshrc`へ追加します。
@@ -43,21 +42,17 @@ make up
 
 `make up`は、フロントエンドをビルドしてからWailsの開発アプリを起動します。アプリを終了する場合は、ターミナルで`Ctrl-C`を押してください。
 
-## Windows版の出力
+## 各プラットフォームでのダウンロード
 
-Windows上でプロジェクトルートから実行します。
-
-```sh
-make build/win
+```bash
+make build
 ```
 
-生成物は`build/win-amd64/tabpo.exe`です。WSLから起動する場合は、Windows側のパスを指定します。
+を実行することでどのプラットフォームかを自動判別して自動でビルドが行われます。ビルド後、以下のディレクトリに生成された実行ファイルを起動してご利用ください。
 
-```sh
-/mnt/c/path/to/project/build/win-amd64/tabpo.exe
-```
-
-この場合、アプリ本体とGUIはWindowsで動作し、WSLは起動コマンドを実行するだけです。PostgreSQLがWSL内で動作している場合は、接続フォームのホストに`localhost`を指定して接続できない環境があるため、その場合はWSLのIPアドレスを指定してください。
+- Windows: `build/win-amd64/tabpo.exe`
+- macOS: `build/mac-arm64/tabpo.app`
+- Linux: `build/linux-amd64/tabpo`
 
 ## 接続の流れ
 
