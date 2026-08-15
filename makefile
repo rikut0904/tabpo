@@ -29,7 +29,6 @@ init/linux:
 		sudo apt-get install -y pkg-config libgtk-3-dev libwebkit2gtk-4.0-dev; \
 	fi
 	go install github.com/wailsapp/wails/v2/cmd/wails@$(WAILS_VERSION)
-	cd $(FRONTEND_DIR) && npm install
 	@echo "Linuxの初期化が完了しました。"
 
 init/win:
