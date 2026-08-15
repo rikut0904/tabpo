@@ -13,7 +13,7 @@ Windows版のビルドには、Windows 10/11、WebView2 Runtime、Go、Node.js/n
 
 ## 初回セットアップ
 
-環境に合わせて初期化します。Wails CLIのインストール、フロントエンド依存関係の導入、Linuxに必要なGTK/WebKitGTKの導入を行います。このコマンドで書くプラットフォームを自動判定するためwindows,mac,linuxいずれでも同じコマンドで実行可能です。
+環境に合わせて初期化します。Wails CLIのインストール、フロントエンド依存関係の導入、Linuxに必要なGTK/WebKitGTKの導入を行います。このコマンドで各プラットフォームを自動判定するため、Windows/macOS/Linuxいずれでも同じコマンドで実行可能です。
 
 ```sh
 make init
